@@ -1,0 +1,54 @@
+proc main
+	// preserve register values
+	push a
+	push b
+	push c
+	// move values into registers
+	mov a 57
+	mov b 42
+	mov c 69
+	// perform some arithmetic
+	sub c b
+	div a c
+	mod b a
+	sub b c
+	sub b a
+	int
+	// get max of the general purpose
+	// registers (result returned in reg a)
+	call min3
+	int
+	// restore values
+	pop c
+	pop b
+	pop a
+	int
+	// done
+	ret
+endp
+
+proc max3
+// find max of a and b
+	cmp a b
+	jge cmpAC
+	mov a b
+// find max of a and c
+cmpAC:
+	cmp a c
+	jge end
+	mov a c
+end:
+	ret
+endp
+
+proc min3
+	cmp a b
+	jle cmpAC
+	mov a b
+cmpAC:
+	cmp a c
+	jle end
+	mov a c
+end:
+	ret
+endp
